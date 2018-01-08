@@ -5,6 +5,8 @@ export const ADD_POST = 'ADD_POST';
 export const ADD_POSTS = 'ADD_POSTS';
 export const DELETE_POST = 'DELETE_POST';
 export const EDIT_POST = 'EDIT_POST';
+export const THUMB_UP_POST = 'THUMB_UP_POST';
+export const THUMB_DOWN_POST = 'THUMB_DOWN_POST';
 
 // Export Actions
 export function addPost(post) {
@@ -21,6 +23,7 @@ export function addPostRequest(post) {
         name: post.name,
         title: post.title,
         content: post.content,
+        votes: 0,
       },
     }).then(res => dispatch(addPost(res.post)));
   };
@@ -77,5 +80,52 @@ export function editPostRequest(cuid, post) {
         content: post.content,
       },
     }).then(() => dispatch(editPost(cuid, post)));
+  };
+}
+
+
+export function thumbUpPost(cuid, post) {
+  return {
+    type: THUMB_UP_POST,
+    cuid,
+    post,
+  };
+}
+
+export function thumbUpPostRequest(cuid, post) {
+  return (dispatch) => {
+    let votes = post.votes + 1;
+
+    return callApi(`posts/${cuid}`, 'thumb_up', {
+      post: {
+        name: post.name,
+        title: post.title,
+        content: post.content,
+        votes: votes,
+      },
+    }).then(() => dispatch(thumbUpPost(cuid, post)));
+  };
+}
+
+export function thumbDownPost(cuid, post) {
+  return {
+    type: THUMB_DOWN_POST,
+    cuid,
+    post,
+  };
+}
+
+export function thumbDownPostRequest(cuid, post) {
+  return (dispatch) => {
+    let votes = post.votes - 1;
+
+    return callApi(`posts/${cuid}`, 'thumb_up', {
+      post: {
+        name: post.name,
+        title: post.title,
+        content: post.content,
+        votes: votes,
+      },
+    }).then(() => dispatch(thumbDownPost(cuid, post)));
   };
 }

@@ -12,7 +12,9 @@ export default {
     postTitle: 'Titre de l\'article',
     postContent: 'Contenu après',
     submit: 'Soumettre',
-    editPost: 'Edit Post',
+    editPost: 'éditer le post',
+    thumbUp: ' En haut ',
+    thumbDown: ' Vers le bas ',
     comment: `user {name} {value, plural,
     	  =0 {does not have any comments}
     	  =1 {has # comment}

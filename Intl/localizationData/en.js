@@ -13,6 +13,8 @@ export default {
     postContent: 'Post Content',
     submit: 'Submit',
     editPost: 'Edit Post',
+    thumbUp: ' Up ',
+    thumbDown: ' Down ',
     comment: `user {name} {value, plural,
     	  =0 {does not have any comments}
     	  =1 {has # comment}
