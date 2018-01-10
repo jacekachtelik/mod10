@@ -5,13 +5,38 @@ import { FormattedMessage } from 'react-intl';
 // Import Style
 import styles from './Header.css';
 
+const sitesTable = [
+  {
+    siteKey: 'home',
+    siteName: 'Home',
+    siteUrl: '/home',
+  },
+  {
+    siteKey: 'posts',
+    siteName: 'Posts',
+    siteUrl: '/posts',
+  },
+  {
+    siteKey: 'about',
+    siteName: 'About',
+    siteUrl: '/about',
+  },
+];
+
 export function Header(props, context) {
   const languageNodes = props.intl.enabledLanguages.map(
     lang => <li key={lang} onClick={() => props.switchLanguage(lang)} className={lang === props.intl.locale ? styles.selected : ''}>{lang}</li>
   );
 
+  const sites = sitesTable.map(
+    site => <li key={site.siteKey} className={styles['add-post-button']}><Link to={site.siteUrl} >{site.siteName}</Link></li>
+  );
+
   return (
     <div className={styles.header}>
+      <div className={styles['language-switcher']}>
+        {sites}
+      </div>
       <div className={styles['language-switcher']}>
         <ul>
           <li><FormattedMessage id="switchLanguage" /></li>

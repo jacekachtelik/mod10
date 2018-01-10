@@ -2,6 +2,8 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './modules/App/App';
+import Home from './modules/Home/Home';
+import About from './modules/About/About';
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -43,19 +45,19 @@ export default (
     />
     <Route
       path="/home"
+      component={Home}
+    />
+    <Route
+      path="/posts"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Home/Home').default);
+          cb(null, require('./modules/Post/pages/PostListPage/PostListPage').default);
         });
       }}
     />
     <Route
       path="/about"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./modules/About/About').default);
-        });
-      }}
+      component={About}
     />
   </Route>
 );
