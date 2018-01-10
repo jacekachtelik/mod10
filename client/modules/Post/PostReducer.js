@@ -21,10 +21,32 @@ const PostReducer = (state = initialState, action) => {
       };
 
     case EDIT_POST :
-    case THUMB_UP_POST :
-    case THUMB_DOWN_POST :
       return {
         data: state.data.map(post => { return post.cuid === action.cuid ? Object.assign({}, post, action.post) : post; }),
+      };
+
+    case THUMB_UP_POST :
+      return {
+        data: state.data.map(post => {
+          let votes = post.votes;
+          votes = (typeof(post.votes) === undefined) ? 0 : votes;
+          if (post.cuid === action.cuid) {
+            return { ...post, votes: votes + 1 };
+          }
+          return post;
+        }),
+      };
+
+    case THUMB_DOWN_POST :
+      return {
+        data: state.data.map(post => { 
+          let votes = post.votes;
+          votes = (typeof(post.votes) === undefined) ? 0 : votes;
+          if (post.cuid === action.cuid) {
+            return { ...post, votes: votes - 1 };
+          }
+          return post;
+        }),
       };
 
     default:
